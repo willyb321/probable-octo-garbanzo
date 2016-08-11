@@ -1,0 +1,39 @@
+{
+  "name": "probable-octo-garbanzo",
+  "version": "0.0.0",
+  "description": "My peachy module",
+  "license": "MIT",
+  "repository": "willyb321/probable-octo-garbanzo",
+  "author": {
+    "name": "willyb321",
+    "email": "wbwilliam7@gmail.com",
+    "url": "tehsuperwilly.tech"
+  },
+  "bin": "cli.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && nyc ava"
+  },
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "cli-app",
+    "cli",
+    ""
+  ],
+  "dependencies": {
+    "meow": "^3.7.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "nyc": "^7.1.0",
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "esnext": true
+  }
+}
