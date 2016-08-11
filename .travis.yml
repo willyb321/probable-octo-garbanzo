@@ -1,4 +1,28 @@
 language: node_js
 node_js:
-  - '6'
-  - '4'
+- '6'
+cache:
+  directories:
+  - node_modules
+before_install:
+- export TZ=Australia/Sydney
+- rvm install ruby-2.3.1
+install:
+- npm install
+- gem install github_changelog_generator
+script:
+- git config user.name "Travis CI"
+- git config user.email "travis@travis-ci.com"
+- npm test
+- npm version patch -m "Update version to %s & update changelog.md [ci skip]"
+- github_changelog_generator
+- git commit -a --amend --no-edit
+after_deploy:
+- git push --quiet "https://$GH_TOKEN:x-oauth-basic@github.com/willyb321/node-notes.git"
+  HEAD:master > /dev/null 2>&1
+after_success:
+- export GIT_TAG=build-$TRAVIS_BUILD_NUMBER-$TRAVIS_BRANCH-$(date "+%Y-%m-%d-%I-%M")
+- git tag $GIT_TAG -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
+- git push --quiet "https://$GH_TOKEN:x-oauth-basic@github.com/willyb321/node-notes.git"
+  $GIT_TAG
+- git push --quiet "https://$GH_TOKEN:x-oauth-basic@github.com/willyb321/node-notes.git" HEAD:master > /dev/null 2>&1
